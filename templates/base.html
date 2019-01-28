@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/base_style.css' %}">
     <title>{% block title %}{% endblock%}</title>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
 </head>
 <body>
     
@@ -37,17 +38,18 @@
                 </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Estudantes, Disciplinas, Provas..." aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Estudantes, Disciplinas, Provas..." aria-label="Pesquisar">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
                 </form>
             </div>
         </nav>
-        <div class="main">  
+        
+        <div class="main">
         {% block main %}
         {% endblock %}
         </div>
 
-        <footer class="page-footer font-small blue" id="footer">
+        <footer class="page-footer font-small white">
             <div class="footer-copyright text-center py-3">© 2019 Copyright:
             <a href="">Aurora.me</a>
             </div>

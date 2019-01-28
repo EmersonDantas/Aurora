@@ -1,0 +1,4 @@
+#BED63A - Azul
+#33A5E2 - Verde
+#FFAF0A - Laranja
+#AC9C31 - MarromClaro

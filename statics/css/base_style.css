@@ -8,10 +8,19 @@ html, body{
     margin-bottom: 40px;
 }
 
-footer {
+.page-footer {
     border-top: 1px solid #333;
     bottom: 0;
     left: 0;
     position: fixed;
     width: 100%;
+    background-color: rgba(51, 51, 51, 0.76);
+}
+
+.page-footer div{
+    color: #ffffff;
+}
+
+.page-footer a{
+    color: #ffffff;
 }
