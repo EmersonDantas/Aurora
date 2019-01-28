@@ -56,7 +56,7 @@ ROOT_URLCONF = 'aurora.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,7 +126,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'statics_files')
-
 STATICFILES_DIRS = [
-    'statics',
+    os.path.join(BASE_DIR, 'statics'),
 ]
