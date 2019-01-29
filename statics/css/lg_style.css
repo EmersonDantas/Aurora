@@ -1,0 +1,52 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.loginform{
+    height: 60%;
+    background-color: rgba(0, 0, 0, 0.329);
+    margin-top: 6.5%;
+    position: relative;
+}
+
+.loginform h3{
+    margin-right: 200px;
+    margin-top: 6%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ffffff;
+}
+
+form{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 4%;
+    background-color:  rgba(0, 0, 0, 0.534);
+    height: 100%;
+    padding-top: 9%;
+    padding-left: 50px;
+    padding-right: 50px;
+
+}
+
+.page-footer {
+    border-top: 1px solid #333;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    background-color: rgba(51, 51, 51, 0.76);
+}
+
+.page-footer div{
+    color: #ffffff;
+}
+
+.page-footer a{
+    color: #ffffff;
+}

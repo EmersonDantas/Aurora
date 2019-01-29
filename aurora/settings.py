@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrapform',
     'user',
     'home',
 ]
@@ -126,6 +127,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'statics_files')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'statics'),
 ]
+
+LOGIN_URL = '/login'
+
+LOGIN_REDIRECT_URL = 'home'

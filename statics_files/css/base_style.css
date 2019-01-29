@@ -30,11 +30,8 @@ html, body{
     padding-top: 6px;
     padding-left: 14px;
     padding-right: 14px;
-    padding-bottom: 6px;
     background-color: rgba(51, 165, 226, 0);
-    border-top: 1.4px solid #ffffff;
-    border-bottom: 1.4px solid #ffffff;
-    border-left: 1.4px solid #ffffff;
+    border: 1.4px solid #ffffff;
     border-radius:5px 5px 5px 5px;
     height: 38px;
 }
@@ -43,15 +40,6 @@ html, body{
     font-size: 12pt;
     color: #ffffff;
     font-weight: bold;
-}
-
-#btn_sair{
-    margin-left: -5px;
-    margin-right: 0px;
-    padding: 6px;
-    height: 38px;
-    background-color: #ffffff;
-    color: #000000;
 }
 
 .page-footer {
