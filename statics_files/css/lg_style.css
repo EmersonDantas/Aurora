@@ -85,11 +85,9 @@ html, body{
     top: 0;
     right: 0;
     color: #ffffff;
-    padding-top: 0.5%;
 }
 
 .registerform form{
-    padding-top: 2.5%;
     display: block;
     float: right;
     top: 0;
@@ -99,7 +97,7 @@ html, body{
     height: 100%;
     padding-left: 50px;
     padding-right: 50px;
-    width: 25%;
+    width: 100%;
 }
 
 /* Mods visuais do formulário em geral */
@@ -125,16 +123,11 @@ html, body{
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 40px;;
-    position: absolute;
+    position: fixed;
     background-color:	#353A40;
 }
 
-.footer-copyright{
-    color: #ffffff;
-}
-
-.footer-copyright a{
+.page-footer div{
     color: #ffffff;
 }
 
