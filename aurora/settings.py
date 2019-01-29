@@ -132,6 +132,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'statics'),
 ]
 
-LOGIN_URL = '/login'
+LOGIN_URL = 'user/login'
 
 LOGIN_REDIRECT_URL = 'home'

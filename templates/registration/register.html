@@ -1,0 +1,15 @@
+{% extends 'base_auth.html' %}
+{% load bootstrap %}
+
+{% block title %}Register{% endblock %}
+
+{% block form %}
+<div class="registerform">
+    <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <button type="submit" class="btn btn-outline-light">Registrar</button>
+    </form>
+    <h3 class="text-right">Registro</h3>
+</div>
+{% endblock %}

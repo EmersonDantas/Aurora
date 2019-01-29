@@ -1,3 +1,5 @@
+/* Geral, backgroung e logo */
+
 html, body{
     margin: 0;
     padding: 0;
@@ -22,11 +24,12 @@ html, body{
     border: 0.5px solid #33A5E2;
     border-radius:0px 5px 5px 0px;
     padding-left: 27%;
-    padding-right: 100%;
+    padding-right: 2%;
     padding-top: 50px;
     padding-bottom: 50px;
 }
 
+/* Para formulario de login */
 .loginform{
     height: 100%;
     width: 100%;
@@ -43,29 +46,80 @@ html, body{
     color: #ffffff;
 }
 
-.control-label {
-    color: #ffffff;
-}
-
 .loginform button{
     float: right;
-    width: 100%
+    width: 100%;
 }
 
-form{
+.loginform form{
     display: block;
     float: right;
+    padding-top: 15%;
     top: 0;
     right: 0;
     margin-right: 4%;
     background-color:  rgba(0, 0, 0, 0.534);
     height: 100%;
-    padding-top: 16%;
     padding-left: 50px;
     padding-right: 50px;
     width: 25%;
     max-width: 25%;
 }
+
+/* Para formulario de Registro */
+.registerform{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+}
+
+.registerform button{
+    float: right;
+    width: 100%;
+}
+
+.registerform h3{
+    margin-right: 14.5%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ffffff;
+    padding-top: 1%;
+}
+
+.registerform form{
+    display: block;
+    float: right;
+    padding-top: 3%;
+    top: 0;
+    right: 0;
+    margin-right: 4%;
+    background-color:  rgba(0, 0, 0, 0.534);
+    height: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 25%;
+    max-width: 25%;
+}
+
+/* Mods visuais do formulário em geral */
+.control-label {
+    color: #ffffff;
+}
+
+.register_link{
+    float: right;
+    color: #ffffff;
+    padding-top: 10px;
+}
+
+.register_link a{
+    font-weight: bold;
+    color: #33A5E2;
+}
+
+/* Footer */
 
 .page-footer {
     border-top: 10px solid #33A5E2;

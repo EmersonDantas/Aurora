@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User as UserD
 
 SEX_CHOICES = (
     ('M', 'Masculino'),
@@ -6,19 +7,18 @@ SEX_CHOICES = (
 )
 
 class User(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    birth_date = models.DateField()
+    user = models.OneToOneField(UserD, related_name="user", on_delete="CASCADE")
+    birth_date = models.DateField(max_length=10)
     sex = models.CharField(max_length=1, choices = SEX_CHOICES)
     profile_photo = models.ImageField(upload_to="profile_photos", null=True, blank = True)
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        return self.user.first_name + ' ' + self.user.last_name
 
-class Student(User):
+class Student(models.Model):
+    user = models.OneToOneField(User, related_name="student", on_delete="CASCADE")
     ies = models.CharField(max_length=50)
-    course = models.CharField(max_length=50)
-    year_graduation = models.IntegerField()
+    course = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        return self.user.user.first_name + ' ' + self.user.user.last_name

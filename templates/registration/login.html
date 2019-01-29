@@ -1,64 +1,16 @@
-{% load static %}
+{% extends 'base_auth.html' %}
 {% load bootstrap %}
-<!DOCTYPE html>
-<html lang = "pt-br">
-<head>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'css/lg_style.css' %}">
-    <title>Login</title>
-    <link rel="icon" href="{% static 'img/favicon.ico' %}">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="">
-                <img class="navbar_logo" src="{% static 'img/logo_transparent.png' %}" width="60" height="46" alt="">
-        </a>
-        
-    </nav>
 
-    <div id="particles">
+{% block title %}Login{% endblock %}
 
-            <img src="{% static 'img/logo_transparent.png'%}" alt="" class="logo">
-
-        <div class="loginform">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form|bootstrap }}
-                <button type="submit" class="btn btn-outline-light">Entrar</button>
-            </form>
-            <h3 class="text-right">Login</h3>
-        </div>
-
-    </div>
-
-    <footer class="page-footer font-small white">
-        <div class="footer-copyright text-center py-3">© 2019 Copyright:
-        <a href="">myaurora.tk</a>
-        </div>
-    </footer>
-
-<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous">
-</script>
-
-<script
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous">
-</script>
-
-<script
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"
-    integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
-    crossorigin="anonymous">
-</script>
-
-<script type='text/javascript' src="{% static 'js/jquery.particleground.js' %}"></script>
-
-<script type='text/javascript' src="{% static 'js/demo.js' %}"></script>
-</body>
-</html>
+{% block form %}
+<div class="loginform">
+    <form method="POST" >
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <button type="submit" class="btn btn-outline-light">Entrar</button>
+        <p class="register_link">Novo por aqui? <a href="{% url 'register' %}">Registre-se</a></p>
+    </form>
+    <h3 class="text-right">Login</h3>
+</div>
+{% endblock %}
