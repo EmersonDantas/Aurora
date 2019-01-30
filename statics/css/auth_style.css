@@ -5,7 +5,6 @@ html, body{
     padding: 0;
     height: 100%;
     width: 100%;
-    position: fixed;
 }
 
 #particles{
@@ -38,12 +37,13 @@ html, body{
 }
 
 .loginform h3{
-    margin-right: 14.5%;
     margin-top: 13%;
-    position: absolute;
     top: 0;
     right: 0;
     color: #ffffff;
+    position: absolute;
+    margin-top: 12%;
+    margin-right: 15%;
 }
 
 .loginform button{
@@ -80,16 +80,14 @@ html, body{
 }
 
 .registerform h3{
-    margin-right: 14.5%;
-    position: absolute;
+    margin-right: 25%;
     top: 0;
     right: 0;
     color: #ffffff;
-    padding-top: 0.5%;
 }
 
 .registerform form{
-    padding-top: 2.5%;
+    padding-top: 0.5%;
     display: block;
     float: right;
     top: 0;
