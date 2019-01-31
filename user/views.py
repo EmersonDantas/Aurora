@@ -37,7 +37,6 @@ def registerUser(request):
             #Criando o usuario usando o django auth
             userDjango = UserD.objects.create_user(username=email, first_name=first_name, last_name=last_name, email=email, password=password)
         except IntegrityError:
-            messages.error(request, 'Email já cadastrado!')
             return render(request, 'registration/register.html', {'form':form})
         # Criando o usuario Aurora
         myUser = User(user=userDjango, birth_date=birth_date, sex=sex, profile_photo=profile_photo)
@@ -47,6 +46,5 @@ def registerUser(request):
         student = Student(user=myUser, ies=ies, course=course)
         student.save_base()
 
-        messages.success(request, 'Usuário cadastrado com sucesso!')
         return redirect('home')
     return render(request, 'registration/register.html', {'form':form})
