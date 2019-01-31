@@ -64,6 +64,7 @@ html, body{
 }
 
 .main {
+    min-height: 93.3%;
     height: auto;
     width: 100%;
     position: absolute;
