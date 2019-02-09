@@ -74,16 +74,17 @@ html, body{
 }
 
 .functions {
-    background-color: yellow;
+    background-color: rgba(191, 214, 58, 0.6);
     float: left;
     width: 20%;
     height: 100%;
     margin: 10px;
     padding: 10px;
+    border-radius:5px 5px 5px 5px;
 }
 
 .feed {
-    background-color: blue;
+    background-color: rgba(51, 165, 226, 0.6);
     top: 0;
     float: left;
     width: 35%;
@@ -91,27 +92,31 @@ html, body{
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
+    border-radius:5px 5px 5px 5px;
 }
 
 .infos {
-    background-color: green;
+    background-color: rgba(255, 173, 10, 0.6);
     top: 0;
     float: left;
     width: 20%;
     height: 100%;
     margin: 10px;
     padding: 10px;
+    border-radius:5px 5px 5px 5px;
 }
 
 /* Footer */
 
 .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .page-footer {
     border-top: 10px solid #33A5E2;
     background-color:	#353A40;
-    bottom: 0px;
 }
 
 .footer-copyright{
@@ -124,4 +129,94 @@ footer-copyright a{
 
 .page-footer a{
     color: #ffffff;
+}
+
+/* Schedule feed */ 
+
+.feed h3 {
+    text-align: center;
+    color: #ffffff;
+    border-bottom: 4px solid #ffffffa8;
+    padding: 4px;
+}
+
+.functions h3 {
+    text-align: center;
+    color: #ffffff;
+    border-bottom: 4px solid #ffffffa8;
+    padding: 4px;
+}
+
+.infos h3 {
+    text-align: center;
+    color: #ffffff;
+    border-bottom: 4px solid #ffffffa8;
+    padding: 4px;
+}
+
+.period_list {
+    padding: 0;
+}
+
+button#new_period {
+    width: 100%;
+}
+
+.period {
+    height: 100%;
+    width: 100%;
+}
+
+.period li{
+    cursor: pointer;
+    list-style-type: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius:5px 5px 5px 5px;
+}
+
+.period a{
+    text-align: center;
+    display: block;
+    height: 100%;
+    width: 100%;
+    color:rgba(51, 165, 226, 0.6);
+    text-decoration: none;
+}
+
+/* Subjects feed */
+
+
+.subject_list {
+    padding: 0;
+}
+
+button#new_subject {
+    width: 100%;
+}
+
+.subject {
+    height: 100%;
+    width: 100%;
+}
+
+.subject li{
+    cursor: pointer;
+    list-style-type: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius:5px 5px 5px 5px;
+}
+
+.subject a{
+    text-align: center;
+    display: block;
+    height: 100%;
+    width: 100%;
+    color:rgba(51, 165, 226, 0.6);
+    text-decoration: none;
 }

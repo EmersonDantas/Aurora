@@ -3,12 +3,23 @@
 {% block title %}Agenda{% endblock %}
 
 {% block functions %}
-
+    <h3>Funções</h3>
+    <button id="new_period" type="button" class="btn btn-success">Novo Periodo</button>
 {% endblock %}
 
 {% block feed %}
-
+    <h3>Seus periodos cadastrados</h3>
+    {% for period in periods %}
+        <ul class="period_list">
+            <div class="period">
+                <li>
+                    <a href="{% url 'subject' period.id %}">{{period.year}}</a>
+                </li>
+            </div>
+        </ul> 
+    {% endfor %}
 {% endblock %}
 
 {% block infos %}
+<h3>Noticias</h3>
 {% endblock %}

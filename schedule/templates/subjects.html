@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Agenda{% endblock %}
+
+{% block functions %}
+    <h3>Funções</h3>
+    <button id="new_subject" type="button" class="btn btn-success">Nova Disciplina</button>
+{% endblock %}
+
+{% block feed %}
+    <h3>Suas disciplinas cadastradas</h3>
+    {% for subject in subjects %}
+        <ul class="subject_list">
+            <div class="subject">
+                <li>
+                    <a href="{% url 'home' %}">{{subject.name}}</a>
+                </li>
+            </div>
+        </ul> 
+    {% endfor %}
+{% endblock %}
+
+{% block infos %}
+<h3>Noticias</h3>
+{% endblock %}
