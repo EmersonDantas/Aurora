@@ -64,3 +64,16 @@ def editPeriod(request):
                 periodSelected.save()
 
         return redirect('schedule')
+
+@login_required
+def editSubject(request):
+        if(request.method == 'POST'):
+                id = request.POST.get('id')
+
+@login_required
+def deleteSubject(request):
+        return redirect('schedule')
+
+@login_required
+def newSubject(request):
+        return redirect('schedule')

@@ -183,7 +183,6 @@ button#new_period {
 }
 
 .period-year {
-    padding-left: 225px;
 }
 
 /* All modals */
@@ -244,10 +243,10 @@ button#new_subject {
 }
 
 .subject a{
-    text-align: center;
-    display: block;
-    height: 100%;
-    width: 100%;
     color:rgba(51, 165, 226, 0.6);
     text-decoration: none;
+    margin-left: 8px;
+}
+
+.subject-name {
 }
