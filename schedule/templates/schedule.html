@@ -1,14 +1,100 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block title %}Agenda{% endblock %}
 
 {% block functions %}
-
+    <h3>Funções</h3>
+    <!-- Button trigger modal to create new period -->
+    <button id="new_period" type="button" class="btn btn-success" data-toggle="modal" data-target="#newPeriodModal">Novo Periodo</button>
 {% endblock %}
 
 {% block feed %}
+    <h3>Seus periodos cadastrados</h3>
+    {% for period in periods %}
+        <ul class="period_list">
+            <div class="period">
+                <li>
+                    <a href="{% url 'subject' period.id %}">{{period.year}}</a>
+                    <a href="" class="trash-item"  data-toggle="modal" data-target="#deletePeriodModal" data-whatever='[{{period.id}}, {{period.year}}]'>
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </li>
+            </div>
+        </ul> 
+    {% endfor %}
+
+    <!-- Modal Form - Delete selected Period -->
+
+    <div class="modal fade" id="deletePeriodModal" tabindex="-1" role="dialog" aria-labelledby="deletePeriodModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePeriodModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Ao clicar em "Sim", todas as disciplinas desse periodo também serão apagadas, juntamente com todas as notas relacionadas a elas.</p>
+                    <form action="{% url 'deletePeriod' %}" method="POST" name="deletePeriodForm" id="deletePeriodForm">
+                        {% csrf_token %}
+                        <input type="hidden" id="id_period" name="id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <!-- To work delete button -->
+                    <button type="submit" id="confirm-delete" class="btn btn-danger" form="deletePeriodForm">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Modal Form - Create new Period -->
+    <div class="modal fade" id="newPeriodModal" tabindex="-1" role="dialog" aria-labelledby="newPeriodModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="newPeriodModalLabel">Novo Periodo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          
+                </div>
+                <div class="modal-body">
+                    <div class="newPeriodForm">
+                        <form method="POST" id="newPeriodForm" name="newPeriodForm" action="{% url 'newPeriod' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="control-label" for="id_year">Ano/Periodo</label>
+                                <div class=" ">
+                                    <input type="text" name="year" class=" form-control" id="id_year" maxlength="6">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" form="newPeriodForm"">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
 {% block infos %}
+<h3>Noticias</h3>
 {% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $('#deletePeriodModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipient = button.data('whatever')
+            var modal = $(this) 
+            modal.find('.modal-title').text('Confirma apagar periodo ' + recipient[1] + "?")
+            modal.find('#id_period').val(recipient[0])
+        })
+    </script>
+{% endblock%}

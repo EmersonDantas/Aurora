@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User as UserD
-from schedule import models as schedule_models
 
 SEX_CHOICES = (
     ('M', 'Masculino'),
@@ -17,10 +16,9 @@ class User(models.Model): # User Aurora
         return self.user.first_name + ' ' + self.user.last_name
 
 class Student(models.Model): # Student Aurora
-    user = models.OneToOneField(User, related_name="student", on_delete="CASCADE") # User Aurora
+    user = models.OneToOneField(User, related_name="student", on_delete=models.DO_NOTHING) # User Aurora
     ies = models.CharField(max_length=50)
-    course = models.CharField(max_length=20)
-    periods = models.ForeignKey(schedule_models.Period, on_delete=models.DO_NOTHING)
+    course = models.CharField(max_length=50)
 
     def __str__(self):
         return self.user.user.first_name + ' ' + self.user.user.last_name
