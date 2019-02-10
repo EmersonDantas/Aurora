@@ -176,11 +176,13 @@ button#new_period {
 }
 
 .period a{
-    text-align: center;
     color:rgba(51, 165, 226, 0.6);
     text-decoration: none;
     margin-left: 8px;
-    width: auto;
+}
+
+.period-year {
+    padding-left: 225px;
 }
 
 /* All modals */
@@ -195,11 +197,24 @@ button#new_period {
     width: auto;
 }
 
+.edit-item {
+    float: right;
+    margin-right: 8px;
+    width: auto;
+}
+
 /* new period modal */
 
 #newPeriodModal {
 }
 
+/* delete period modal */
+
+#delete-modal {
+    background-color: rgb(255, 94, 94);
+    color: #ffffff;
+    border-color: rgb(255, 94, 94);
+}
 
 /* Subjects feed */
 
