@@ -4,7 +4,8 @@
 
 {% block functions %}
     <h3>Funções</h3>
-    <button id="new_subject" type="button" class="btn btn-success">Nova Disciplina</button>
+    <!-- Button trigger modal to create new period -->
+    <button id="new_subject" type="button" class="btn btn-success" data-toggle="modal" data-target="#newSubjectModal">Nova Disciplina</button>
 {% endblock %}
 
 {% block feed %}
@@ -41,7 +42,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="editSubjectForm">
-                        <form method="POST" id="editSubjectForm" name="editSubjectForm" action="{% url 'editSubject' %}">
+                        <form method="POST" id="editSubjectForm" name="editSubjectForm" action="{% url 'editSubject' periodId %}">
                             {% csrf_token %}
                             <div class="form-group">
                                 <input type="hidden" id="id_subject" name="id">
@@ -78,7 +79,7 @@
                 </div>
                 <div class="modal-body">
                     <p>Ao clicar em "Sim", todas as notas dessa disciplina também serão apagadas.</p>
-                    <form action="{% url 'deleteSubject' %}" method="POST" name="deleteSubjectForm" id="deleteSubjectForm">
+                    <form action="{% url 'deleteSubject' periodId %}" method="POST" name="deleteSubjectForm" id="deleteSubjectForm">
                         {% csrf_token %}
                         <input type="hidden" id="id_subject" name="id">
                     </form>
@@ -104,12 +105,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="newSubjectForm">
-                        <form method="POST" id="newSubjectForm" name="newSubjectForm" action="{% url 'newSubject' %}">
+                        <form method="POST" id="newSubjectForm" name="newSubjectForm" action="{% url 'newSubject' periodId %}">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label class="control-label" for="id_name">Nome</label>
                                 <div class=" ">
                                     <input type="text" name="name" class=" form-control" id="id_name" maxlength="50">
+                                </div>
+                                <label class="control-label" for="id_name">Creditos</label>
+                                <div class=" ">
                                     <input type="number" name="credits" class=" form-control" id="id_credits">
                                 </div>
                             </div>
