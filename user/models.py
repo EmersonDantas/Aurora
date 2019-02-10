@@ -16,7 +16,7 @@ class User(models.Model): # User Aurora
         return self.user.first_name + ' ' + self.user.last_name
 
 class Student(models.Model): # Student Aurora
-    user = models.OneToOneField(User, related_name="student", on_delete="CASCADE") # User Aurora
+    user = models.OneToOneField(User, related_name="student", on_delete=models.DO_NOTHING) # User Aurora
     ies = models.CharField(max_length=50)
     course = models.CharField(max_length=50)
 

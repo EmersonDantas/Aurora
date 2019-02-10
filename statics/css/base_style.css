@@ -69,7 +69,7 @@ html, body{
     width: 100%;
     position: absolute;
     right: 0;
-    padding-left: 20%;
+    padding-left: 18%;
     background-color: rgba(0, 0, 0, 0.185);
 }
 
@@ -163,8 +163,6 @@ button#new_period {
 }
 
 .period {
-    height: 100%;
-    width: 100%;
 }
 
 .period li{
@@ -179,12 +177,29 @@ button#new_period {
 
 .period a{
     text-align: center;
-    display: block;
-    height: 100%;
-    width: 100%;
     color:rgba(51, 165, 226, 0.6);
     text-decoration: none;
+    margin-left: 8px;
+    width: auto;
 }
+
+/* All modals */
+
+.modal-dialog {
+    top: 30%;
+}
+
+.trash-item {
+    float: right;
+    margin-right: 8px;
+    width: auto;
+}
+
+/* new period modal */
+
+#newPeriodModal {
+}
+
 
 /* Subjects feed */
 
