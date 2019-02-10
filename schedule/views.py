@@ -50,7 +50,17 @@ def deletePeriod(request):
                 id = request.POST.get('id')
                 loggedStudent = getLoggedStudent(request)
                 periodSelected = get_object_or_404(Period, pk=id, student=loggedStudent)
-                print(periodSelected)
                 periodSelected.delete()
         return redirect('schedule')
-                
+
+@login_required
+def editPeriod(request):
+        if(request.method == 'POST'):
+                id = request.POST.get('id')
+                year = request.POST.get('year')
+                loggedStudent = getLoggedStudent(request)
+                periodSelected = get_object_or_404(Period, pk=id, student=loggedStudent)
+                periodSelected.year = year
+                periodSelected.save()
+
+        return redirect('schedule')
