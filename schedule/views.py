@@ -15,15 +15,10 @@ def showSchedule(request):
 @login_required
 def showSubjects(request, id):
         periodSelected = get_object_or_404(Period, pk=id)
-
         student = getLoggedStudent(request)
-
         allSubjectsOfThisPeriod = Subject.objects.filter(period=periodSelected, student=student)
-        
-        if(allSubjectsOfThisPeriod.first() != None):
-                return render(request, 'subjects.html', {'subjects':allSubjectsOfThisPeriod, 'periodId':id})
-        else:
-                return redirect('schedule')
+        return render(request, 'subjects.html', {'subjects':allSubjectsOfThisPeriod, 'periodId':id})
+
 
 @login_required
 def getLoggedStudent(request):

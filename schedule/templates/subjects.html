@@ -4,12 +4,15 @@
 
 {% block functions %}
     <h3>Funções</h3>
-    <!-- Button trigger modal to create new period -->
+    <!-- Button trigger modal to create new subject -->
     <button id="new_subject" type="button" class="btn btn-success" data-toggle="modal" data-target="#newSubjectModal">Nova Disciplina</button>
 {% endblock %}
 
 {% block feed %}
     <h3>Suas disciplinas cadastradas</h3>
+    {% if subjects|length == 0 %}
+        <p style="color: white; text-align: center">Você não possui disciplinas dacastradas.</p>
+    {% endif %}
     {% for subject in subjects %}
         <ul class="subject_list">
             <div class="subject">
