@@ -4,22 +4,184 @@
 
 {% block functions %}
     <h3>Funções</h3>
-    <button id="new_subject" type="button" class="btn btn-success">Nova Disciplina</button>
+    <!-- Button trigger modal to create new subject -->
+    <button id="new_subject" type="button" class="btn btn-success" data-toggle="modal" data-target="#newSubjectModal">Nova Disciplina</button>
 {% endblock %}
 
 {% block feed %}
     <h3>Suas disciplinas cadastradas</h3>
+    {% if subjects|length == 0 %}
+        <p style="color: #000000; text-align: center">Você não possui disciplinas dacastradas.</p>
+    {% endif %}
     {% for subject in subjects %}
         <ul class="subject_list">
             <div class="subject">
                 <li>
-                    <a href="{% url 'home' %}">{{subject.name}}</a>
+                    <a id="subject-name" class="subject-name" data-toggle="collapse" data-target="#showSubjectNotesCollapse-{{subject.id}}">
+                        {{subject.name}}
+                    </a>
+
+                    <!-- Button trigger modal to delete selected subject -->
+                    <a href="" class="trash-item"  data-toggle="modal" data-target="#deleteSubjectModal" data-whateverid="{{subject.id}}" data-whatevername="{{subject.name}}" data-whatevercredits="{{subject.credits}}">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                        
+                    <!-- Button trigger modal to edit selected subject -->
+                    <a href="" class="edit-item"  data-toggle="modal" data-target="#editSubjectModal" data-whateverid="{{subject.id}}" data-whatevername="{{subject.name}}" data-whatevercredits="{{subject.credits}}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+
+                    <!-- Collapse for show notes -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="showSubjectNotesCollapse-{{subject.id}}">
+                                <div class="card card-body">
+                                    <ul class="notes_list">
+                                        {% for note in allNotes %}
+                                            {% if note.subject == subject %}
+                                                <li class="notes_line">
+                                                    <a>{{note.name}}: {{note.value}}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </div>
         </ul> 
     {% endfor %}
+
+    <!-- Modal Form - Edit selected Subject -->
+
+    <div class="modal fade" id="editSubjectModal" tabindex="-1" role="dialog" aria-labelledby="editSubjectModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editSubjectModalLabel">Editar Disciplina</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            
+                </div>
+                <div class="modal-body">
+                    <div class="editSubjectForm">
+                        <form method="POST" id="editSubjectForm" name="editSubjectForm" action="{% url 'editSubject' periodId %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="hidden" id="id_subject" name="id">
+                                <label class="control-label" for="id_name">Nome</label>
+                                <div class=" ">
+                                    <input type="text" name="name" class=" form-control" id="id_name" maxlength="50">
+                                </div>
+                                <label class="control-label" for="id_name">Creditos</label>
+                                <div class=" ">
+                                    <input type="number" name="credits" class=" form-control" id="id_credits">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success" form="editSubjectForm"">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form - Delete selected Subject -->
+
+    <div class="modal fade" id="deleteSubjectModal" tabindex="-1" role="dialog" aria-labelledby="deleteSubjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="delete-modal">
+                    <h5 class="modal-title" id="deleteSubjectModalLabel">Javascript load this</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Ao clicar em "Sim", todas as notas dessa disciplina também serão apagadas.</p>
+                    <form action="{% url 'deleteSubject' periodId %}" method="POST" name="deleteSubjectForm" id="deleteSubjectForm">
+                        {% csrf_token %}
+                        <input type="hidden" id="id_subject" name="id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <!-- To work delete button -->
+                    <button type="submit" id="confirm-delete" class="btn btn-danger" form="deleteSubjectForm">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Form - Create new Subject -->
+
+    <div class="modal fade" id="newSubjectModal" tabindex="-1" role="dialog" aria-labelledby="newSubjectModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="newSubjectModalLabel">Nova Disciplina</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            
+                </div>
+                <div class="modal-body">
+                    <div class="newSubjectForm">
+                        <form method="POST" id="newSubjectForm" name="newSubjectForm" action="{% url 'newSubject' periodId %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="control-label" for="id_name">Nome</label>
+                                <div class=" ">
+                                    <input type="text" name="name" class=" form-control" id="id_name" maxlength="50">
+                                </div>
+                                <label class="control-label" for="id_name">Creditos</label>
+                                <div class=" ">
+                                    <input type="number" name="credits" class=" form-control" id="id_credits">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success" form="newSubjectForm"">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block infos %}
-<h3>Noticias</h3>
+<h3>Eventos</h3>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $('#deleteSubjectModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipientid = button.data('whateverid')
+            var recipientname = button.data('whatevername')
+            var recipientcredits = button.data('whatevercredits')
+
+            var modal = $(this) 
+            modal.find('.modal-title').text('Confirma apagar a disciplina ' + recipientname + "?")
+            modal.find('#id_subject').val(recipientid)
+        })
+
+        $('#editSubjectModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipientid = button.data('whateverid')
+            var recipientname = button.data('whatevername')
+            var recipientcredits = button.data('whatevercredits')
+
+            var modal = $(this) 
+
+            modal.find('#id_subject').val(recipientid)
+            modal.find('#id_name').val(recipientname)
+            modal.find('#id_credits').val(recipientcredits)
+        })
+    </script>
 {% endblock %}

@@ -11,25 +11,68 @@
 
 {% block feed %}
     <h3>Seus periodos cadastrados</h3>
+    {% if periods|length == 0 %}
+        <p style="color: #000000; text-align: center">Você não possui periodos dacastrados.</p>
+    {% endif %}
     {% for period in periods %}
         <ul class="period_list">
             <div class="period">
                 <li>
-                    <a href="{% url 'subject' period.id %}">{{period.year}}</a>
-                    <a href="" class="trash-item"  data-toggle="modal" data-target="#deletePeriodModal" data-whatever='[{{period.id}}, {{period.year}}]'>
+                    <a href="{% url 'subject' period.id %}" class="period-year">{{period.year}}</a>
+
+                    <!-- Button trigger modal to delete selected period -->
+                    <a href="" class="trash-item"  data-toggle="modal" data-target="#deletePeriodModal" data-whateverid="{{period.id}}" data-whatevername="{{period.year}}">
                         <i class="fa fa-trash"></i>
                     </a>
+
+                    <!-- Button trigger modal to edit selected period -->
+                    <a href="" class="edit-item"  data-toggle="modal" data-target="#editPeriodModal" data-whateverid="{{period.id}}" data-whatevername="{{period.year}}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    
                 </li>
             </div>
         </ul> 
     {% endfor %}
+
+    <!-- Modal Form - Edit selected Period -->
+
+    <div class="modal fade" id="editPeriodModal" tabindex="-1" role="dialog" aria-labelledby="editPeriodModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editPeriodModalLabel">Editar Periodo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          
+                </div>
+                <div class="modal-body">
+                    <div class="editPeriodForm">
+                        <form method="POST" id="editPeriodForm" name="editPeriodForm" action="{% url 'editPeriod' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="hidden" id="id_period" name="id">
+                                <label class="control-label" for="id_year">Ano/Periodo</label>
+                                <div class=" ">
+                                    <input type="text" name="year" class=" form-control" id="id_year" maxlength="6">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success" form="editPeriodForm"">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Form - Delete selected Period -->
 
     <div class="modal fade" id="deletePeriodModal" tabindex="-1" role="dialog" aria-labelledby="deletePeriodModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" id="delete-modal">
                     <h5 class="modal-title" id="deletePeriodModalLabel"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -52,6 +95,7 @@
     </div>
   
     <!-- Modal Form - Create new Period -->
+
     <div class="modal fade" id="newPeriodModal" tabindex="-1" role="dialog" aria-labelledby="newPeriodModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -74,8 +118,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary" form="newPeriodForm"">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success" form="newPeriodForm"">Salvar</button>
                 </div>
             </div>
         </div>
@@ -84,17 +128,29 @@
 {% endblock %}
 
 {% block infos %}
-<h3>Noticias</h3>
+<h3>Informações</h3>
 {% endblock %}
 
 {% block scripts %}
     <script type="text/javascript">
         $('#deletePeriodModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
-            var recipient = button.data('whatever')
+            var recipientid = button.data('whateverid')
+            var recipientname = button.data('whatevername')
+
             var modal = $(this) 
-            modal.find('.modal-title').text('Confirma apagar periodo ' + recipient[1] + "?")
-            modal.find('#id_period').val(recipient[0])
+            modal.find('.modal-title').text('Confirma apagar periodo ' + recipientname + "?")
+            modal.find('#id_period').val(recipientid)
+        })
+
+        $('#editPeriodModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipientid = button.data('whateverid')
+            var recipientname = button.data('whatevername')
+
+            var modal = $(this) 
+            modal.find('#id_year').val(recipientname)
+            modal.find('#id_period').val(recipientid)
         })
     </script>
 {% endblock%}

@@ -3,11 +3,11 @@ html, body{
     padding: 0;
     height: 100%;
     width: 100%;
+    min-width: 1280px;
+    min-height: 720px;
 }
 
 /* NavBar */
-.header {
-}
 
 .navbar {
     top:0;
@@ -60,43 +60,48 @@ html, body{
 /* Corpo */
 
 .geral {
-    min-height: 93.3%;
+    min-width: 1280px;
+    min-height: 720px;
 }
 
 .main {
-    min-height: 93.3%;
+    min-width: 1280px;
+    min-height: 720px;
     height: auto;
     width: 100%;
     position: absolute;
     right: 0;
-    padding-left: 18%;
-    background-color: rgba(0, 0, 0, 0.185);
+    padding-left: 20%;
+    background-color: #ffffff;
+    
 }
 
 .functions {
-    background-color: rgba(191, 214, 58, 0.6);
+    background-color: rgba(218, 218, 218, 0.6);
     float: left;
     width: 20%;
     height: 100%;
     margin: 10px;
     padding: 10px;
     border-radius:5px 5px 5px 5px;
+    min-height: 880px;
 }
 
 .feed {
-    background-color: rgba(51, 165, 226, 0.6);
+    background-color: #979ca0;
     top: 0;
     float: left;
-    width: 35%;
+    width: 500px;
     height: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
     border-radius:5px 5px 5px 5px;
+    min-height: 880px;
 }
 
 .infos {
-    background-color: rgba(255, 173, 10, 0.6);
+    background-color: rgba(218, 218, 218, 0.6);
     top: 0;
     float: left;
     width: 20%;
@@ -104,6 +109,7 @@ html, body{
     margin: 10px;
     padding: 10px;
     border-radius:5px 5px 5px 5px;
+    min-height: 880px;
 }
 
 /* Footer */
@@ -135,21 +141,22 @@ footer-copyright a{
 
 .feed h3 {
     text-align: center;
-    color: #ffffff;
+    color: #000000;
     border-bottom: 4px solid #ffffffa8;
     padding: 4px;
+    height: auto;
 }
 
 .functions h3 {
     text-align: center;
-    color: #ffffff;
+    color: #000000;
     border-bottom: 4px solid #ffffffa8;
     padding: 4px;
 }
 
 .infos h3 {
     text-align: center;
-    color: #ffffff;
+    color: #000000;
     border-bottom: 4px solid #ffffffa8;
     padding: 4px;
 }
@@ -160,9 +167,6 @@ footer-copyright a{
 
 button#new_period {
     width: 100%;
-}
-
-.period {
 }
 
 .period li{
@@ -176,14 +180,16 @@ button#new_period {
 }
 
 .period a{
-    text-align: center;
-    color:rgba(51, 165, 226, 0.6);
+    color: #000000;
     text-decoration: none;
     margin-left: 8px;
-    width: auto;
 }
 
+
 /* All modals */
+.control-label {
+    margin-top: 8px;
+}
 
 .modal-dialog {
     top: 30%;
@@ -195,16 +201,27 @@ button#new_period {
     width: auto;
 }
 
-/* new period modal */
-
-#newPeriodModal {
+.edit-item {
+    float: right;
+    margin-right: 8px;
+    width: auto;
 }
 
+/* new period modal */
+
+
+/* delete period modal */
+
+#delete-modal {
+    background-color: rgb(255, 94, 94);
+    color: #ffffff;
+    border-color: rgb(255, 94, 94);
+}
 
 /* Subjects feed */
 
 
-.subject_list {
+ul.subject_list {
     padding: 0;
 }
 
@@ -228,10 +245,23 @@ button#new_subject {
 }
 
 .subject a{
-    text-align: center;
-    display: block;
-    height: 100%;
-    width: 100%;
-    color:rgba(51, 165, 226, 0.6);
+    color: #000000;
     text-decoration: none;
+    margin-left: 8px;
+}
+
+/* Notes */
+ul.notes_list {
+    padding: 0;
+}
+
+li.notes_line {
+    cursor: pointer;
+    list-style-type: none;
+    margin-top: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #f0eeee;
+    border: 1px solid #c5c5c5;
+    border-radius:5px 5px 5px 5px;
 }
