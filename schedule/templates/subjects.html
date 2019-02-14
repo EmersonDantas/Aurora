@@ -11,13 +11,15 @@
 {% block feed %}
     <h3>Suas disciplinas cadastradas</h3>
     {% if subjects|length == 0 %}
-        <p style="color: white; text-align: center">Você não possui disciplinas dacastradas.</p>
+        <p style="color: #000000; text-align: center">Você não possui disciplinas dacastradas.</p>
     {% endif %}
     {% for subject in subjects %}
         <ul class="subject_list">
             <div class="subject">
                 <li>
-                    <a href="{% url 'home' %}" class="subject-name">{{subject.name}}</a>
+                    <a id="subject-name" class="subject-name" data-toggle="collapse" data-target="#showSubjectNotesCollapse-{{subject.id}}">
+                        {{subject.name}}
+                    </a>
 
                     <!-- Button trigger modal to delete selected subject -->
                     <a href="" class="trash-item"  data-toggle="modal" data-target="#deleteSubjectModal" data-whateverid="{{subject.id}}" data-whatevername="{{subject.name}}" data-whatevercredits="{{subject.credits}}">
@@ -28,6 +30,25 @@
                     <a href="" class="edit-item"  data-toggle="modal" data-target="#editSubjectModal" data-whateverid="{{subject.id}}" data-whatevername="{{subject.name}}" data-whatevercredits="{{subject.credits}}">
                         <i class="fa fa-edit"></i>
                     </a>
+
+                    <!-- Collapse for show notes -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="showSubjectNotesCollapse-{{subject.id}}">
+                                <div class="card card-body">
+                                    <ul class="notes_list">
+                                        {% for note in allNotes %}
+                                            {% if note.subject == subject %}
+                                                <li class="notes_line">
+                                                    <a>{{note.name}}: {{note.value}}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </div>
         </ul> 
@@ -134,7 +155,7 @@
 {% endblock %}
 
 {% block infos %}
-<h3>Noticias</h3>
+<h3>Eventos</h3>
 {% endblock %}
 
 {% block scripts %}
@@ -163,4 +184,4 @@
             modal.find('#id_credits').val(recipientcredits)
         })
     </script>
-{% endblock%}
+{% endblock %}

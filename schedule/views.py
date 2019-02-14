@@ -17,7 +17,15 @@ def showSubjects(request, id):
         periodSelected = get_object_or_404(Period, pk=id)
         student = getLoggedStudent(request)
         allSubjectsOfThisPeriod = Subject.objects.filter(period=periodSelected, student=student)
-        return render(request, 'subjects.html', {'subjects':allSubjectsOfThisPeriod, 'periodId':id})
+        allNotesOfThisSubject = Note.objects.filter(period=periodSelected)
+        print(allNotesOfThisSubject)
+        context = {
+                'subjects':allSubjectsOfThisPeriod, 
+                'periodId':id,
+                'allNotes':allNotesOfThisSubject,
+                'period':periodSelected
+                }
+        return render(request, 'subjects.html', context)
 
 
 @login_required

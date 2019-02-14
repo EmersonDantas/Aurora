@@ -45,6 +45,6 @@ def registerUser(request):
             # Criando um usuario estudante
             student = Student(user=myUser, ies=ies, course=course)
             student.save_base()
-        
+
         return redirect('home')
     return render(request, 'registration/register.html', {'form':form})

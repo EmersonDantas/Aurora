@@ -60,7 +60,8 @@ html, body{
 /* Corpo */
 
 .geral {
-    min-height: 93.3%;
+    min-width: 1280px;
+    min-height: 720px;
 }
 
 .main {
@@ -70,8 +71,9 @@ html, body{
     width: 100%;
     position: absolute;
     right: 0;
-    padding-left: 18%;
-    background-color: rgb(235, 242, 247);
+    padding-left: 20%;
+    background-color: #ffffff;
+    
 }
 
 .functions {
@@ -86,7 +88,7 @@ html, body{
 }
 
 .feed {
-    background-color: rgba(236, 236, 236, 0.6);
+    background-color: #979ca0;
     top: 0;
     float: left;
     width: 500px;
@@ -219,7 +221,7 @@ button#new_period {
 /* Subjects feed */
 
 
-.subject_list {
+ul.subject_list {
     padding: 0;
 }
 
@@ -248,5 +250,18 @@ button#new_subject {
     margin-left: 8px;
 }
 
-.subject-name {
+/* Notes */
+ul.notes_list {
+    padding: 0;
+}
+
+li.notes_line {
+    cursor: pointer;
+    list-style-type: none;
+    margin-top: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #f0eeee;
+    border: 1px solid #c5c5c5;
+    border-radius:5px 5px 5px 5px;
 }

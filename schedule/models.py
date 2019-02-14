@@ -24,7 +24,7 @@ class Note(models.Model):
     weight = models.IntegerField(default=1)
     value = models.DecimalField(max_digits=4, decimal_places=2)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
-    period = period = models.ForeignKey(Period, on_delete=models.CASCADE, null=True, blank=True)
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
         return self.name + ": " + str(self.value)
