@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from user import models as user_models
 from .models import Period, Subject, Note
-from .forms import PeriodForm, SubjectForm
+from .forms import PeriodForm, SubjectForm, NoteForm
 
 @login_required
 def showSchedule(request):
@@ -18,7 +18,7 @@ def showSubjects(request, id):
         student = getLoggedStudent(request)
         allSubjectsOfThisPeriod = Subject.objects.filter(period=periodSelected, student=student)
         allNotesOfThisSubject = Note.objects.filter(period=periodSelected)
-        print(allNotesOfThisSubject)
+
         context = {
                 'subjects':allSubjectsOfThisPeriod, 
                 'periodId':id,
@@ -26,7 +26,6 @@ def showSubjects(request, id):
                 'period':periodSelected
                 }
         return render(request, 'subjects.html', context)
-
 
 @login_required
 def getLoggedStudent(request):
@@ -112,3 +111,63 @@ def newSubject(request, periodId):
                         newSubject.save()
 
         return redirect('subject', periodId)
+
+@login_required
+def newNote(request, periodId):
+        form = NoteForm(request.POST or None)
+        if(request.method == 'POST'):
+                if(form.is_valid()):
+                        loggedStudent = getLoggedStudent(request)
+                        periodSelected = get_object_or_404(Period, pk=periodId, student=loggedStudent)
+                        
+                        subjectId = request.POST.get('id')
+                        name = form.cleaned_data['name']
+                        weight = form.cleaned_data['weight']
+                        value = form.cleaned_data['value']
+
+                        subjectSelected = get_object_or_404(Subject, pk=subjectId, period=periodSelected, student=loggedStudent)
+
+                        newNote = Note(name=name, weight=weight, value=value, subject=subjectSelected, period=periodSelected)
+                        newNote.save()
+        return redirect('subject',periodId)
+
+@login_required
+def deleteNote(request, periodId):
+        if(request.method == 'POST'):
+                loggedStudent = getLoggedStudent(request)
+                periodSelected = get_object_or_404(Period, pk=periodId, student=loggedStudent)
+
+                noteId = request.POST.get('id_note')
+                selectedSubjectId = request.POST.get('id_subject')
+
+                selectedSubject = get_object_or_404(Subject, pk=selectedSubjectId, period=periodSelected, student=loggedStudent)
+
+                noteSelected = get_object_or_404(Note, pk=noteId, subject=selectedSubject, period=periodSelected)
+                noteSelected.delete()
+
+        return redirect('subject',periodId)
+
+@login_required
+def editNote(request, periodId):
+        if(request.method == 'POST'):
+                loggedStudent = getLoggedStudent(request)
+                periodSelected = get_object_or_404(Period, pk=periodId, student=loggedStudent)
+                
+                noteId = request.POST.get('id_note')
+                subjectId = request.POST.get('id_subject')
+                name = request.POST.get('name')
+                weight = request.POST.get('weight')
+                value = request.POST.get('value')
+
+                selectedSubject = get_object_or_404(Subject, pk=subjectId, period=periodSelected, student=loggedStudent)
+
+                selectedNote = get_object_or_404(Note, pk=noteId, subject=selectedSubject, period=periodSelected)
+
+                selectedNote.name = name
+                selectedNote.weight = int(weight)
+                selectedNote.value = int(value)
+
+                selectedNote.save()
+
+        return redirect('subject',periodId)
+        

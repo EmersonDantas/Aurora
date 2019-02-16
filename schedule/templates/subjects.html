@@ -37,13 +37,28 @@
                             <div class="collapse multi-collapse" id="showSubjectNotesCollapse-{{subject.id}}">
                                 <div class="card card-body">
                                     <ul class="notes_list">
+                                        <p>Notas desse periodo:</p>
                                         {% for note in allNotes %}
                                             {% if note.subject == subject %}
                                                 <li class="notes_line">
                                                     <a>{{note.name}}: {{note.value}}</a>
+
+                                                    <!-- Button trigger modal to delete selected note -->
+                                                    <a href="" class="trash-item"  data-toggle="modal" data-target="#deleteNoteModal" data-whateverid="{{note.id}}" data-whatevername="{{note.name}}" data-whateversubjectid="{{subject.id}}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                            
+                                                    <!-- Button trigger modal to edit selected note -->
+                                                    <a href="" class="edit-item"  data-toggle="modal" data-target="#editNoteModal" data-whateverid="{{note.id}}" data-whatevername="{{note.name}}" data-whateversubjectid="{{subject.id}}" data-whateverweight="{{note.weight}}" data-whatevervalue="{{note.value}}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
+                                        <button type="button" class="btn btn-info" style="margin-top: 8px; float: right"
+                                        data-toggle="modal" data-target="#newNoteModal" data-whateverid="{{subject.id}}">
+                                            Adicionar nova nota
+                                        </button>
                                     </ul>
                                 </div>
                             </div>
@@ -53,6 +68,121 @@
             </div>
         </ul> 
     {% endfor %}
+
+    <!-- Modal Form - Edit selected note -->
+
+    <div class="modal fade" id="editNoteModal" tabindex="-1" role="dialog" aria-labelledby="editNoteModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editNoteModalLabel">Editar Nota</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            
+                </div>
+                <div class="modal-body">
+                    <div class="editNoteForm">
+                        <form method="POST" id="editNoteForm" name="editNoteForm" action="{% url 'editNote' periodId %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="hidden" id="id_note" name="id_note">
+                                <input type="hidden" id="id_subject" name="id_subject">
+
+                                <label class="control-label" for="id_name">Nome</label>
+                                <div class=" ">
+                                    <input type="text" name="name" class=" form-control" id="id_name" maxlength="50">
+                                </div>
+
+                                <label class="control-label" for="id_weight">Peso</label>
+                                <div class=" ">
+                                    <input type="number" name="weight" class=" form-control" id="id_weight">
+                                </div>
+
+                                <label class="control-label" for="id_value">Valor</label>
+                                <div class=" ">
+                                    <input type="number" name="value" class=" form-control" id="id_value">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success" form="editNoteForm"">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form - Delete selected note -->
+
+    <div class="modal fade" id="deleteNoteModal" tabindex="-1" role="dialog" aria-labelledby="deleteNoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="delete-modal">
+                    <h5 class="modal-title" id="deleteNoteModalLabel">Javascript load this</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Ao clicar em "Sim" está nota será apagada para sempre(muito tempo, sério).</p>
+                    <form action="{% url 'deleteNote' periodId %}" method="POST" name="deleteNoteForm" id="deleteNoteForm">
+                        {% csrf_token %}
+                        <input type="hidden" id="id_note" name="id_note">
+                        <input type="hidden" id="id_subject" name="id_subject">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <!-- To work delete button -->
+                    <button type="submit" id="confirm-delete" class="btn btn-danger" form="deleteNoteForm">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form - add new note -->
+
+    <div class="modal fade" id="newNoteModal" tabindex="-1" role="dialog" aria-labelledby="newNoteModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="newNoteModalLabel">Nova nota</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            
+                </div>
+                <div class="modal-body">
+                    <div class="newNoteForm">
+                        <form method="POST" id="newNoteForm" name="newNoteForm" action="{% url 'newNote' periodId %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="hidden" id="id_subject" name="id">
+
+                                <label class="control-label" for="id_name">Nome</label>
+                                <div class=" ">
+                                    <input type="text" name="name" class=" form-control" id="id_name" maxlength="50">
+                                </div>
+
+                                <label class="control-label" for="id_weight">Peso</label>
+                                <div class=" ">
+                                    <input type="number" name="weight" class=" form-control" id="id_weight">
+                                </div>
+
+                                <label class="control-label" for="id_value">Valor</label>
+                                <div class=" ">
+                                    <input type="number" name="value" class=" form-control" id="id_value">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success" form="newNoteForm"">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Form - Edit selected Subject -->
 
@@ -70,11 +200,13 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <input type="hidden" id="id_subject" name="id">
+
                                 <label class="control-label" for="id_name">Nome</label>
                                 <div class=" ">
                                     <input type="text" name="name" class=" form-control" id="id_name" maxlength="50">
                                 </div>
-                                <label class="control-label" for="id_name">Creditos</label>
+
+                                <label class="control-label" for="id_credits">Creditos</label>
                                 <div class=" ">
                                     <input type="number" name="credits" class=" form-control" id="id_credits">
                                 </div>
@@ -136,7 +268,7 @@
                                 <div class=" ">
                                     <input type="text" name="name" class=" form-control" id="id_name" maxlength="50">
                                 </div>
-                                <label class="control-label" for="id_name">Creditos</label>
+                                <label class="control-label" for="id_credits">Creditos</label>
                                 <div class=" ">
                                     <input type="number" name="credits" class=" form-control" id="id_credits">
                                 </div>
@@ -167,7 +299,7 @@
             var recipientcredits = button.data('whatevercredits')
 
             var modal = $(this) 
-            modal.find('.modal-title').text('Confirma apagar a disciplina ' + recipientname + "?")
+            modal.find('.modal-title').text('Confirma apagar a disciplina "' + recipientname + '"?')
             modal.find('#id_subject').val(recipientid)
         })
 
@@ -183,5 +315,44 @@
             modal.find('#id_name').val(recipientname)
             modal.find('#id_credits').val(recipientcredits)
         })
+
+        $('#newNoteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipientid = button.data('whateverid')
+
+            var modal = $(this) 
+
+            modal.find('#id_subject').val(recipientid)
+        })
+
+        $('#deleteNoteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipientid = button.data('whateverid')
+            var recipientname = button.data('whatevername')
+            var recipientsubjectid = button.data('whateversubjectid')
+
+            var modal = $(this) 
+            modal.find('.modal-title').text('Confirma apagar a nota "' + recipientname + '"?')
+            modal.find('#id_note').val(recipientid)
+            modal.find('#id_subject').val(recipientsubjectid)
+        })
+
+        $('#editNoteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipientid = button.data('whateverid')
+            var recipientname = button.data('whatevername')
+            var recipientsubjectid = button.data('whateversubjectid')
+            var recipientweight = button.data('whateverweight')
+            var recipientvalue = button.data('whatevervalue')
+
+            var modal = $(this) 
+
+            modal.find('#id_note').val(recipientid)
+            modal.find('#id_subject').val(recipientsubjectid)
+            modal.find('#id_name').val(recipientname)
+            modal.find('#id_weight').val(recipientweight)
+            modal.find('#id_value').val(parseInt(recipientvalue))
+        })
+        
     </script>
 {% endblock %}
