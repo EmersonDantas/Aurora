@@ -5,12 +5,12 @@ from .models import Period, Subject, Note
 from .forms import PeriodForm, SubjectForm, NoteForm
 
 @login_required
-def showSchedule(request):
+def showAcademic(request):
         student = getLoggedStudent(request)
 
         if(isinstance(student, user_models.Student)):
                 studentAllPeriods = Period.objects.filter(student=student)
-                return render(request, 'schedule.html', {'periods':studentAllPeriods})
+                return render(request, 'academic.html', {'periods':studentAllPeriods})
 
 @login_required
 def showSubjects(request, id):
@@ -44,7 +44,7 @@ def newPeriod(request):
                         newPeriod = Period(year=year, student=student)
                         newPeriod.save()
 
-        return redirect('schedule')
+        return redirect('academic')
 
 @login_required
 def deletePeriod(request):
@@ -54,7 +54,7 @@ def deletePeriod(request):
                 periodSelected = get_object_or_404(Period, pk=id, student=loggedStudent)
                 periodSelected.delete()
                 
-        return redirect('schedule')
+        return redirect('academic')
 
 @login_required
 def editPeriod(request):
@@ -66,7 +66,7 @@ def editPeriod(request):
                 periodSelected.year = year
                 periodSelected.save()
 
-        return redirect('schedule')
+        return redirect('academic')
 
 @login_required
 def editSubject(request, periodId):

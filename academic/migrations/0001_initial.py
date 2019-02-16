@@ -37,13 +37,13 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
                 ('credits', models.IntegerField(default=0)),
-                ('period', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='schedule.Period')),
+                ('period', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='academic.Period')),
                 ('student', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='user.Student')),
             ],
         ),
         migrations.AddField(
             model_name='note',
             name='subject',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='schedule.Subject'),
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='academic.Subject'),
         ),
     ]

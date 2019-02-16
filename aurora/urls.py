@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from home import urls as home_urls
 from user import urls as user_urls
-from schedule import urls as schedule_urls
+from academic import urls as academic_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls, name = "admin"),
     path('', include(home_urls), name = "home"),
     path('user/', include(user_urls), name = 'user'),
-    path('', include(schedule_urls), name='schedule'),
+    path('', include(academic_urls), name='academic'),
 ]
