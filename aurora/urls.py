@@ -18,10 +18,12 @@ from django.urls import path, include
 from home import urls as home_urls
 from user import urls as user_urls
 from academic import urls as academic_urls
+from horary import urls as horary_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls, name = "admin"),
     path('', include(home_urls), name = "home"),
     path('user/', include(user_urls), name = 'user'),
     path('', include(academic_urls), name='academic'),
+    path('', include(horary_urls), name='horary'),
 ]

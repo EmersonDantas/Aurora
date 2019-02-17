@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'user',
     'home',
     'academic',
+    'horary',
 ]
 
 MIDDLEWARE = [

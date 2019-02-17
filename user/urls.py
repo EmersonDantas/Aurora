@@ -4,6 +4,7 @@ from home import urls as home_urls
 from .views import logoutUser, registerUser
 from django.contrib.auth import views as auth_views
 from academic import urls as academic_urls
+from horary import urls as horary_urls
 
 urlpatterns = [
     path('', include(home_urls), name='home'),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('logout/', logoutUser, name='logout'),
     path('register/', registerUser, name='register'),
     path('', include(academic_urls), name='academic'),
+    path('', include(horary_urls), name='horary'),
 ]

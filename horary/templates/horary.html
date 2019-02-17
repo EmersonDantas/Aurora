@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/horary_style.css' %}">
+
+{% endblock%}
+{% block title %}Agenda{% endblock %}
+
+{% block functions %}
+<h3>Funções</h3>
+    
+{% endblock %}
+
+{% block feed %}
+
+<h3>Horários</h3>
+
+<div class="jumbotron">
+    <div class="table-responsive-md">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" style="text-align: center">Dia/Horario</th>
+                    <th scope="col" style="text-align: center">Domingo</th>
+                    <th scope="col" style="text-align: center">Segunda</th>
+                    <th scope="col" style="text-align: center">Terça</th>
+                    <th scope="col" style="text-align: center">Quarta</th>
+                    <th scope="col" style="text-align: center">Quinta</th>
+                    <th scope="col" style="text-align: center">Sexta</th>
+                    <th scope="col" style="text-align: center">Sábado</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <!--
+                <tr>
+                    <th scope="row">08h-09h</th>
+                    <td>Intro.prog</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>Mark</td>
+                </tr>-->
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block infos %}
+<h3>Informações</h3>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    var lines = 14;
+    var coluns = 7;
+    var horaries = ["08h-09h", "09h-10h", "10h-11h", "11h-12h", "12h-13h", "13h-14h","14h-15h", "15h-16h", "16h-17h", "17h-18h","18h-19h", "19h-20h", "20h-21h", "21h-22h"];
+
+    for(var i = 0; i < lines; i++){
+        var tr = document.createElement("tr");
+        var th = document.createElement("th");
+        th.scope = "row"
+        th.innerHTML = horaries[i];
+        th.style = "text-align: center";
+        tr.appendChild(th);
+        document.getElementById("tbody").appendChild(tr)
+        for(var j = 0; j < coluns; j++){
+           var td = document.createElement("td");
+           var htmlAdd = '<a href="" style="margin-left: 40px; color:#000000;" class="add-item"  data-toggle="modal" data-target="#addHoraryModal"><i class="fa fa-plus-square"></i></a>';
+           td.innerHTML = htmlAdd;
+           tr.appendChild(td);
+        }
+    }
+
+</script>
+
+{% endblock%}
