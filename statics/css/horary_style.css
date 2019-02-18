@@ -22,3 +22,36 @@
     border-radius:5px 5px 5px 5px;
     min-height: 880px;
 }
+
+#selectPeriodForm{
+    margin: 0;
+    float: left;
+}
+
+#selectPeriodForm select{
+    background-color: #ececec;
+    color: #000000;
+}
+
+#btn-see{
+    background-color: #ececec;
+    float: left;
+    margin-left: -4px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-color: #ececec;
+    border-left-color: #000000;
+    color: #000000;
+}
+
+th#selectPeriod {
+    width: 184px;
+}
+
+div#horaryTable{
+    background-color: #ffffff;
+}
+
+.modal-dialog {
+    top: 20%;
+}

@@ -6,7 +6,11 @@
 <link rel="stylesheet" href="{% static 'css/horary_style.css' %}">
 
 {% endblock%}
-{% block title %}Agenda{% endblock %}
+{% block title %}Horarios{% endblock %}
+
+{% block header %}
+
+{% endblock %}
 
 {% block functions %}
 <h3>Funções</h3>
@@ -17,39 +21,96 @@
 
 <h3>Horários</h3>
 
-<div class="jumbotron">
-    <div class="table-responsive-md">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col" style="text-align: center">Dia/Horario</th>
-                    <th scope="col" style="text-align: center">Domingo</th>
-                    <th scope="col" style="text-align: center">Segunda</th>
-                    <th scope="col" style="text-align: center">Terça</th>
-                    <th scope="col" style="text-align: center">Quarta</th>
-                    <th scope="col" style="text-align: center">Quinta</th>
-                    <th scope="col" style="text-align: center">Sexta</th>
-                    <th scope="col" style="text-align: center">Sábado</th>
+<div class="table-responsive-md" id="horaryTable">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="text-align: center" id="selectPeriod">
                     
-                </tr>
-            </thead>
-            <tbody id="tbody">
-                <!--
-                <tr>
-                    <th scope="row">08h-09h</th>
-                    <td>Intro.prog</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                </tr>-->
-                
-            </tbody>
-        </table>
+                    <form class="form" name="selectPeriodForm" id="selectPeriodForm">
+                        
+                        <select class="custom-select" id="period" name="period-selected">
+                            <option selected hidden>Selecione</option>
+                            {% for period in periods %}
+                                <option value="period-{{period.id}}">{{period}}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                    <button onclick="verificar()" class="btn btn-secondary" id="btn-see">Ver</button>
+
+                </th>
+                <th scope="col" style="text-align: center">Domingo</th>
+                <th scope="col" style="text-align: center">Segunda</th>
+                <th scope="col" style="text-align: center">Terça</th>
+                <th scope="col" style="text-align: center">Quarta</th>
+                <th scope="col" style="text-align: center">Quinta</th>
+                <th scope="col" style="text-align: center">Sexta</th>
+                <th scope="col" style="text-align: center">Sábado</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Form - add new horary -->
+
+<div class="modal fade" id="addHoraryModal" tabindex="-1" role="dialog" aria-labelledby="addHoraryLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addHoraryModalLabel">Novo Horario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        
+            </div>
+            <div class="modal-body">
+                <div class="addHoraryForm">
+                    <form method="POST" id="addHoraryForm" name="addHoraryForm" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label" for="id_initials">Sigla</label>
+                            <div class=" ">
+                                <input type="text" name="initials" class=" form-control" id="id_initials" maxlength="10">
+                            </div>
+
+                            <label class="control-label" for="id_initials">Hora de início</label>
+                            <div class=" ">
+                                <input type="text" name="initials" class=" form-control" id="id_initials" maxlength="6">
+                            </div>
+
+                            <label class="control-label" for="id_initials">Hora de terminio</label>
+                            <div class=" ">
+                                <input type="text" name="initials" class=" form-control" id="id_initials" maxlength="6">
+                            </div>
+
+                            <label class="control-label" for="id_initials">Sala</label>
+                            <div class=" ">
+                                <input type="text" name="initials" class=" form-control" id="id_initials" maxlength="10">
+                            </div>
+
+                            <label class="control-label" for="id_initials">Disciplina</label>
+                            <form class="form" name="selectPeriodForm" id="selectPeriodForm" style="margin-top: 8px; margin-bottom: 8px">
+                                <select class="custom-select" id="period" name="period-selected">
+                                    <option selected hidden>Selecione</option>
+                                    {% for period in periods %}
+                                        <option value="period-{{period.id}}">{{period}}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-success" form="addHoraryForm"">Salvar</button>
+            </div>
+        </div>
     </div>
 </div>
+
 
 {% endblock %}
 
@@ -60,26 +121,37 @@
 {% block scripts %}
 
 <script>
-    var lines = 14;
-    var coluns = 7;
-    var horaries = ["08h-09h", "09h-10h", "10h-11h", "11h-12h", "12h-13h", "13h-14h","14h-15h", "15h-16h", "16h-17h", "17h-18h","18h-19h", "19h-20h", "20h-21h", "21h-22h"];
+    window.onload = fillTable();
 
-    for(var i = 0; i < lines; i++){
-        var tr = document.createElement("tr");
-        var th = document.createElement("th");
-        th.scope = "row"
-        th.innerHTML = horaries[i];
-        th.style = "text-align: center";
-        tr.appendChild(th);
-        document.getElementById("tbody").appendChild(tr)
-        for(var j = 0; j < coluns; j++){
-           var td = document.createElement("td");
-           var htmlAdd = '<a href="" style="margin-left: 40px; color:#000000;" class="add-item"  data-toggle="modal" data-target="#addHoraryModal"><i class="fa fa-plus-square"></i></a>';
-           td.innerHTML = htmlAdd;
-           tr.appendChild(td);
+    function fillTable(disciplinas){
+        var lines = 14;
+        var coluns = 7;
+        var horaries = ["08h-09h", "09h-10h", "10h-11h", "11h-12h", "12h-13h", "13h-14h","14h-15h", "15h-16h", "16h-17h", "17h-18h","18h-19h", "19h-20h", "20h-21h", "21h-22h"];
+
+        for(var i = 0; i < lines; i++){
+            var tr = document.createElement("tr");
+            var th = document.createElement("th");
+            th.scope = "row"
+            th.innerHTML = horaries[i];
+            th.style = "text-align: center";
+            tr.appendChild(th);
+            document.getElementById("tbody").appendChild(tr)
+            for(var j = 0; j < coluns; j++){
+            var td = document.createElement("td");
+            var htmlAdd = '<a href="" style="margin-left: 40px; color:#000000;" class="add-item"  data-toggle="modal" data-target="#addHoraryModal"><i class="fa fa-plus-square"></i></a>';
+            td.innerHTML = htmlAdd;
+            tr.appendChild(td);
+            }
         }
     }
 
+    function verificar() {
+        $("#period option:selected").each(function() {
+            console.log($(this).val()); // valor 
+            console.log($(this).text()); // texto
+        });
+    }
+    
 </script>
 
 {% endblock%}
