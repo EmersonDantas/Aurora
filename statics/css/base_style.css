@@ -4,7 +4,6 @@ html, body{
     height: 100%;
     width: 100%;
     min-width: 1280px;
-    min-height: 720px;
 }
 
 /* NavBar */
@@ -115,9 +114,9 @@ html, body{
 /* Footer */
 
 .footer {
-    position: absolute;
     bottom: 0;
     left: 0;
+    width: 100%;
 }
 
 .page-footer {

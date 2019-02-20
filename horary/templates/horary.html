@@ -19,7 +19,7 @@
 
 {% block feed %}
 
-<h3>Horários</h3>
+<h3>Horários do periodo {{currentPeriod}}</h3>
 
 <div class="table-responsive-md" id="horaryTable">
     <table class="table">
@@ -27,8 +27,8 @@
             <tr>
                 <th scope="col" style="text-align: center" id="selectPeriod">
                     
-                    <form class="form" name="selectPeriodForm" id="selectPeriodForm">
-                        
+                    <form class="form" name="selectPeriodForm" id="selectPeriodForm" method="POST" action="{% url 'horary' %}">
+                        {% csrf_token %}
                         <select class="custom-select" id="period" name="period-selected">
                             <option selected hidden>Selecione</option>
                             {% for period in periods %}
@@ -36,7 +36,7 @@
                             {% endfor %}
                         </select>
                     </form>
-                    <button onclick="verificar()" class="btn btn-secondary" id="btn-see">Ver</button>
+                    <button type="submit" class="btn btn-secondary" id="btn-see" form="selectPeriodForm">Ver</button>
 
                 </th>
                 <th scope="col" style="text-align: center">Domingo</th>
@@ -60,7 +60,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="addHoraryModalLabel">Novo Horario</h4>
+                <h4 class="modal-title" id="addHoraryModalLabel">Novo Horário</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         
             </div>
@@ -90,15 +90,14 @@
                             </div>
 
                             <label class="control-label" for="id_initials">Disciplina</label>
-                            <form class="form" name="selectPeriodForm" id="selectPeriodForm" style="margin-top: 8px; margin-bottom: 8px">
-                                <select class="custom-select" id="period" name="period-selected">
+                            <form class="form" name="selectSubjectForm" id="selectSubjectForm" style="margin-top: 8px; margin-bottom: 8px">
+                                <select class="custom-select" id="subject" name="subject-selected">
                                     <option selected hidden>Selecione</option>
-                                    {% for period in periods %}
-                                        <option value="period-{{period.id}}">{{period}}</option>
+                                    {% for subject in subjects %}
+                                        <option value="subject-{{subject.id}}" style="padding: 4px;">{{subject}}</option>
                                     {% endfor %}
                                 </select>
                             </form>
-
                         </div>
                     </form>
                 </div>

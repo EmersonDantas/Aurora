@@ -6,5 +6,4 @@ from .views import showHorary
 urlpatterns = [
     path('', include(home_urls), name='home'),
     path('horary/', showHorary, name='horary'),
-
 ]

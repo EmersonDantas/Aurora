@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from .forms import StudentForm
 from django.contrib.auth.models import User as UserD
 from .models import User, Student
 from django.contrib import messages
 from django.db import IntegrityError
+from django.contrib.auth.models import Group
 
 @login_required
 def index(request):
@@ -37,6 +38,10 @@ def registerUser(request):
             try:
                 #Criando o usuario usando o django auth
                 userDjango = UserD.objects.create_user(username=email, first_name=first_name, last_name=last_name, email=email, password=password)
+                grupoStudent = Group.objects.get(name='Student')
+                userDjango.groups.add(grupoStudent)
+                login(request, userDjango)
+                print(grupoStudent)
             except IntegrityError:
                 return render(request, 'registration/register.html', {'form':form})
             # Criando o usuario Aurora
@@ -46,5 +51,5 @@ def registerUser(request):
             student = Student(user=myUser, ies=ies, course=course)
             student.save_base()
 
-        return redirect('home')
+            return redirect('home')
     return render(request, 'registration/register.html', {'form':form})

@@ -55,3 +55,7 @@ div#horaryTable{
 .modal-dialog {
     top: 20%;
 }
+
+th, td{
+    height: auto;
+}
