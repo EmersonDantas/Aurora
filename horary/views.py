@@ -19,7 +19,6 @@ def showHorary(request):
         
         periods = academic_models.Period.objects.filter(student=loggedStudent)
         allSubjectsOfThisPeriod = []
-        allSubjectsOfThisPeriod.append
         allSubjectsOfThisPeriod = academic_models.Subject.objects.filter(period=periodSelected, student=loggedStudent)
         context = {
             "currentPeriod":periodSelected,
@@ -27,9 +26,12 @@ def showHorary(request):
             "subjects":allSubjectsOfThisPeriod,
         }
     else:
-        lastRegistredPeriod = academic_models.Period.objects.latest('pk')
-        print(lastRegistredPeriod)
-        allSubjectsOfThisPeriod = academic_models.Subject.objects.filter(period=lastRegistredPeriod, student=loggedStudent)
+        lastRegistredPeriod = None
+        allSubjectsOfThisPeriod = []
+        if(len(periods) > 0):
+            lastRegistredPeriod = periods[len(periods)-1]
+            allSubjectsOfThisPeriod = academic_models.Subject.objects.filter(period=lastRegistredPeriod, student=loggedStudent)
+
         context = {
             "currentPeriod":lastRegistredPeriod,
             "periods":periods,
